@@ -82,6 +82,7 @@ func (toolUI *UI) showInputUI() {
 		inputBox.RemoveAll()
 		inputGrid = container.New(layout.NewGridLayout(2))
 		inputBox.Add(inputGrid)
+		fieldStructure = &message{}
 		toolUI.createRequestStructure(fields, nil, inputBox, inputGrid)
 	})
 	methodSelectLabel := toolUI.getFieldLabel("Method")
