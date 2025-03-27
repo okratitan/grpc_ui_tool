@@ -7,6 +7,6 @@ You can save server connection details to be opened again later for ease of use 
 Import paths can be saved - but will always be saved as "imports.gtimport" in the same directory as the open protobuf file.
 
 A Few Current Limitations:
-Certs/TLS configurations are unimplemented and it uses insecure tls currently
-Map Types are unimplemented in the input UI
-Cardinality support other than Unary is unimplemented
+* Certs/TLS configurations are unimplemented and it uses insecure tls currently
+* Map Types are unimplemented in the input UI
+* Cardinality support other than Unary is unimplemented
