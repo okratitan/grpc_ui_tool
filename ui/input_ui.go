@@ -152,7 +152,7 @@ func (toolUI *UI) createRequestStructure(fields []*proto.Field, parent *message,
 			spacer.Show()
 			msgField.grid = container.New(layout.NewGridLayout(2))
 			cont := container.New(layout.NewBorderLayout(nil, nil, spacer, nil), spacer, msgField.grid)
-			inputGrid.Add(toolUI.getFieldLabel(msgField.field.Name + ":"))
+			inputGrid.Add(toolUI.getFieldLabel(msgField.field.Name + " (" + msgField.field.Type + "):"))
 			inputGrid.Add(widget.NewLabel(""))
 			inputBox.Add(cont)
 
@@ -178,7 +178,7 @@ func (toolUI *UI) createRequestStructure(fields []*proto.Field, parent *message,
 				inputGrid = container.New(layout.NewGridLayout(2))
 				inputBox.Add(inputGrid)
 			})
-			inputGrid.Add(toolUI.getFieldLabel(msgField.field.Name))
+			inputGrid.Add(toolUI.getFieldLabel(msgField.field.Name + " (" + msgField.field.Type + "):"))
 			inputGrid.Add(msgField.sel)
 			inputBox.Add(cont)
 		} else if field.IsEnum {
@@ -188,17 +188,17 @@ func (toolUI *UI) createRequestStructure(fields []*proto.Field, parent *message,
 				enums = append(enums, val.Name)
 			}
 			msgField.sel = widget.NewSelect(enums, nil)
-			inputGrid.Add(toolUI.getFieldLabel(msgField.field.Name))
+			inputGrid.Add(toolUI.getFieldLabel(msgField.field.Name + " (" + msgField.field.Type + "):"))
 			inputGrid.Add(msgField.sel)
 		} else if field.Type == "bool" {
 			msgField.inputType = check
 			msgField.check = widget.NewCheck("", nil)
-			inputGrid.Add(toolUI.getFieldLabel(msgField.field.Name))
+			inputGrid.Add(toolUI.getFieldLabel(msgField.field.Name + " (" + msgField.field.Type + "):"))
 			inputGrid.Add(msgField.check)
 		} else {
 			msgField.inputType = entry
 			msgField.entry = widget.NewEntry()
-			inputGrid.Add(toolUI.getFieldLabel(msgField.field.Name))
+			inputGrid.Add(toolUI.getFieldLabel(msgField.field.Name + " (" + msgField.field.Type + "):"))
 			inputGrid.Add(msgField.entry)
 		}
 		if parent != nil {
