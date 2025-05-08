@@ -100,8 +100,6 @@ func (toolUI *UI) showInputUI() {
 		activity.Show()
 		activity.Start()
 		jsonString := toolUI.getRequestJson()
-		fmt.Println(jsonString)
-		toolUI.printRequestStructure()
 
 		resp, err := grpcConn.Send(serviceSelect.Selected, methodSelect.Selected, jsonString)
 		if err != nil {
