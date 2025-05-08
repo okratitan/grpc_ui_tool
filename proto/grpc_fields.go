@@ -73,7 +73,11 @@ func (gcd *GrpcConnection) GetFields(methodName string, fieldsType FieldsType) (
 						if field.IsEnum {
 							field.EnumValues = gcd.getFieldsEnum(fds.Get(k))
 						}
-						if field.IsMessage {
+						if field.IsMessage && fds.Get(k).Message().FullName() == "google.protobuf.Timestamp" {
+							field.IsMessage = false
+							field.Type = string(fds.Get(k).Message().FullName())
+						}
+						if field.IsMessage && fds.Get(k).Message().FullName() != "google.protobuf.Timestamp" {
 							msg, err := gcd.getFieldsMessage(fds.Get(k).Message())
 							if err != nil {
 								return false
@@ -130,7 +134,11 @@ func (gcd *GrpcConnection) getFieldsMessage(desc protoreflect.MessageDescriptor)
 		if field.IsEnum {
 			field.EnumValues = gcd.getFieldsEnum(fds.Get(k))
 		}
-		if field.IsMessage {
+		if field.IsMessage && fds.Get(k).Message().FullName() == "google.protobuf.Timestamp" {
+			field.IsMessage = false
+			field.Type = string(fds.Get(k).Message().FullName())
+		}
+		if field.IsMessage && fds.Get(k).Message().FullName() != "google.protobuf.Timestamp" {
 			msg, err := gcd.getFieldsMessage(fds.Get(k).Message())
 			if err != nil {
 				return nil, err
@@ -147,7 +155,6 @@ func (gcd *GrpcConnection) getFieldsMessage(desc protoreflect.MessageDescriptor)
 			fields = append(fields, field)
 		}
 	}
-
 	return &Message{
 		Name:   string(desc.FullName()),
 		Fields: fields,
