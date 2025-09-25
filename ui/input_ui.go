@@ -104,12 +104,21 @@ func (toolUI *UI) showInputUI() {
 		resp, err := grpcConn.Send(serviceSelect.Selected, methodSelect.Selected, jsonString)
 		if err != nil {
 			dialog.ShowError(err, toolUI.Window)
+			activity.Stop()
+			activity.Hide()
 			return
 		}
 
+		size := toolUI.MainContent.Size()
 		textGrid := widget.NewTextGridFromString(resp)
 
-		dialog.ShowCustom("GRPC Response", "OK", textGrid, toolUI.Window)
+		scroll := container.NewScroll(textGrid)
+		max := container.NewBorder(nil, nil, nil, nil, scroll)
+
+		results := dialog.NewCustom("GRPC Response", "OK", max, toolUI.Window)
+		results.Resize(fyne.NewSize(size.Width/1.5, size.Height/1.5))
+		results.Show()
+
 		activity.Stop()
 		activity.Hide()
 	})
